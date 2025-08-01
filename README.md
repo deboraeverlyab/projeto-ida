@@ -62,6 +62,7 @@ Isso vai:
     │   ├── sql.py                # Funções para salvar DataFrame e executar e visualizar SQL
     ├── scripts/
     │   └── create_view.sql       # Script SQL que cria a view no banco
+    │   ├── create_schemas.sql    # Script SQL que cria a tabela dimensão e fato
     ├── docker-compose.yml        # Arquivo de orquestração Docker
     ├── Dockerfile                # Imagem do container Python
     ├── requirements.txt          # Dependências Python
