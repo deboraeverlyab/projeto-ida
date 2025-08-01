@@ -46,7 +46,7 @@ Isso vai:
 - Criar a view SQL.
 - Consultar e exibir os dados da view no terminal do container.
 
-4. Para parar os containers:
+3. Para parar os containers:
 
    ```bash
     docker-compose down
