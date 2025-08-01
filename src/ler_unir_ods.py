@@ -70,4 +70,3 @@ def ler_unir(BASE_DIR, SERVICOS, ANOS):
     if df_tratado is not None:
         df_tratado.to_csv("dados_tratados.csv", index=False)
     return df_tratado
-

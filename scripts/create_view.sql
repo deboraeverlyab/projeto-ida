@@ -3,18 +3,23 @@ DROP VIEW IF EXISTS view_taxa_variacao;
 CREATE VIEW view_taxa_variacao AS
 WITH dados_filtrados AS (
     SELECT
-        TO_DATE(mes, 'YYYY-MM') AS data_mes,
-        grupo_economico,
-        valor
-    FROM indicador_ida
-    WHERE variavel = 'Indicador de Desempenho no Atendimento (IDA)'
+        dt.mes AS mes,
+        dt.ano AS ano,
+        dt.mes_numero AS mes_numero,
+        dge.nome_grupo_economico AS grupo_economico,
+        fi.valor AS valor
+    FROM fato_ida fi
+    JOIN dim_tempo dt ON fi.id_tempo = dt.id_tempo
+    JOIN dim_grupo_economico dge ON fi.id_grupo_economico = dge.id_grupo_economico
+    JOIN dim_variavel dv ON fi.id_variavel = dv.id_variavel
+    WHERE dv.nome_variavel = 'Indicador de Desempenho no Atendimento (IDA)'
 ),
 valores_com_variacao AS (
     SELECT
-        data_mes,
+        TO_DATE(mes, 'YYYY-MM') AS data_mes,
         grupo_economico,
         valor,
-        LAG(valor) OVER (PARTITION BY grupo_economico ORDER BY data_mes) AS valor_anterior
+        LAG(valor) OVER (PARTITION BY grupo_economico ORDER BY TO_DATE(mes, 'YYYY-MM')) AS valor_anterior
     FROM dados_filtrados
 ),
 variacoes AS (
